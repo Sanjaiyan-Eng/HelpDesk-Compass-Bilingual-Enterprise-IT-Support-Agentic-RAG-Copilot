@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="brand-badge">FDE Project</div>
+        <h1>{{ app_name }}</h1>
+        <p class="muted" data-i18n="tagline"></p>
+      </div>
+
+      <div class="workflow-card">
+        <h3 data-i18n="workflowTitle"></h3>
+        <div class="flow-step" data-i18n="flow1"></div>
+        <div class="flow-step" data-i18n="flow2"></div>
+        <div class="flow-step" data-i18n="flow3"></div>
+        <div class="flow-step" data-i18n="flow4"></div>
+        <div class="flow-step" data-i18n="flow5"></div>
+        <div class="flow-step" data-i18n="flow6"></div>
+        <div class="flow-step" data-i18n="flow7"></div>
+      </div>
+
+      <button id="openUpload" class="secondary-btn" data-i18n="addDocument"></button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="status-dot"></span>
+          <span data-i18n="topbarTitle"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="lang-toggle" role="group" aria-label="Language / 言語">
+            <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <span class="pill">Agentic RAG</span>
+        </div>
+      </header>
+
+      <section id="chat" class="chat-area"></section>
+
+      <section class="composer-wrap">
+        <div id="examples" class="examples"></div>
+        <form id="chatForm" class="composer">
+          <textarea id="question" rows="2" data-i18n-placeholder="placeholder" required></textarea>
+          <button type="submit" class="send-btn" data-i18n="send"></button>
+        </form>
+      </section>
+    </main>
+
+    <aside class="trace-panel">
+      <h2 data-i18n="traceTitle"></h2>
+      <p class="muted" data-i18n="traceSubtitle"></p>
+      <div id="trace" class="trace-list"></div>
+      <div class="source-box">
+        <span data-i18n="finalSource"></span>
+        <strong id="sourceUsed">—</strong>
+      </div>
+    </aside>
+  </div>
+
+  <div id="uploadModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head"><h2 data-i18n="uploadTitle"></h2><button id="closeUpload">×</button></div>
+      <p class="muted" data-i18n="uploadHelp"></p>
+      <input id="adminKey" type="password" data-i18n-placeholder="adminKey" />
+      <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
+      <button id="uploadBtn" class="send-btn full" data-i18n="uploadBtn"></button>
+      <div id="uploadStatus" class="upload-status"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

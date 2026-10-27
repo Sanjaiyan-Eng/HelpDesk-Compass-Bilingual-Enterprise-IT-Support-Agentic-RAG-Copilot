@@ -26,7 +26,7 @@ An end-to-end **Forward Deployed Engineer (FDE) project** that turns a notebook-
 ## 1. Business Problem
 
 ### Customer
-**NovaRetail Japan (ノヴァリテール)**, a fictional 3,000-employee retail company with staff who work in both Japanese and English.
+**superNovaRetail Japan (ノヴァリテール)**, a fictional 3,000-employee retail company with staff who work in both Japanese and English.
 
 ### Problem
 The internal IT team (情シス) is small and maintains many documents: VPN instructions, password rules, MFA policy, software installation rules, laptop troubleshooting guides, and service-desk runbooks. These documents exist in **both Japanese and English**, and some live in PDF or Word files.

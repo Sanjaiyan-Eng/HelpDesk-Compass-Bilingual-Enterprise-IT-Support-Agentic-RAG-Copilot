@@ -1,4 +1,4 @@
-superNovaRetail Internal IT Support Handbook
+superNovaRetail japan  Internal IT Support Handbook
 VPN Access
 Employees working outside the office must use the company VPN before accessing internal systems. Install the NovaSecure VPN client from the internal Software Portal. Sign in with your company email and password, complete MFA, and select the closest corporate gateway. If the connection fails, first confirm internet connectivity, restart the client, and try another corporate gateway. Do not disable endpoint security or firewall settings to make the VPN work. If the problem remains, open an IT ticket with a screenshot of the error.
 
