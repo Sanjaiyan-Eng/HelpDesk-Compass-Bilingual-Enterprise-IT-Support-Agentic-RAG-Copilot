@@ -116,7 +116,7 @@ Build a secure, bilingual IT Support Copilot that:
 
 ---
 
-## 4. Agentic RAG Workflow
+## 3. Agentic RAG Workflow
 
 This follows the same core implementation pattern as the reference notebook, with language handling added at the start and a clear end state when evidence is insufficient.
 
@@ -183,7 +183,7 @@ The system therefore controls **what to do next** based on its current state.
 
 ---
 
-## 5. Bilingual (日本語 / English) Support
+## 4. Bilingual (日本語 / English) Support
 
 | Capability | How it works | Where to implement |
 |---|---|---|
@@ -209,7 +209,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 ---
 
-## 6. Main Technology Stack
+## 5. Main Technology Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -225,7 +225,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 ---
 
-## 7. Project Structure
+## 6. Project Structure
 
 ```text
 HelpDesk_Compass/
@@ -277,126 +277,9 @@ HelpDesk_Compass/
 
 ---
 
-## 8. Setup
 
-### Step 1 — Create virtual environment
 
-```bash
-python -m venv venv
-```
-
-Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-macOS/Linux:
-
-```bash
-source venv/bin/activate
-```
-
-### Step 2 — Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 3 — Configure environment
-
-Create a `.env` file in the project root directory with the following variables:
-
-```env
-# LLM
-GROQ_API_KEY=your_groq_api_key_here
-GROQ_MODEL=openai/gpt-oss-20b
-
-# External Search
-TAVILY_API_KEY=your_tavily_api_key_here
-
-# Vector Database (Pinecone)
-PINECONE_API_KEY=your_pinecone_api_key_here
-PINECONE_INDEX_NAME=helpdesk-compass
-PINECONE_NAMESPACE=company-it-kb
-
-# Embeddings (multilingual, 384 dimensions)
-EMBEDDING_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-
-# Security
-ADMIN_API_KEY=change-me-in-production
-
-# Application Settings
-APP_ENV=development
-```
-
-#### Environment Variable Reference
-
-| Variable | Description | Example | Required |
-|---|---|---|---|
-| `GROQ_API_KEY` | API key for Groq LLM (routing, grading, generation) | `gsk_...` | ✅ Yes |
-| `TAVILY_API_KEY` | API key for Tavily web search | `tvly-...` | ✅ Yes |
-| `PINECONE_API_KEY` | API key for Pinecone vector database | `pckey-...` | ✅ Yes |
-| `PINECONE_INDEX_NAME` | Pinecone index name | `helpdesk-compass` | ⚠️ Optional (default: `helpdesk-compass`) |
-| `PINECONE_NAMESPACE` | Pinecone namespace for document isolation | `company-it-kb` | ⚠️ Optional (default: `company-it-kb`) |
-| `GROQ_MODEL` | Groq model identifier | `openai/gpt-oss-20b` | ⚠️ Optional (default: `openai/gpt-oss-20b`) |
-| `EMBEDDING_MODEL` | Multilingual embedding model (must match the Pinecone index dimension) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` | ⚠️ Optional (default shown) |
-| `ADMIN_API_KEY` | Secret key for admin endpoints (document ingestion) | `your-secure-key` | ⚠️ Optional (default: `change-me`) |
-| `APP_ENV` | Application environment | `development` or `production` | ⚠️ Optional (default: `development`) |
-
-**⚠️ Important Security Notes:**
-
-- Never commit `.env` to version control. Add it to `.gitignore`.
-- Change `ADMIN_API_KEY` to a secure random value in production.
-- Use environment variables instead of hardcoding secrets.
-- Restrict API key access to only the services that need them.
-- Choose the Pinecone region deliberately, and review data-residency and data-protection requirements (for example Japan's APPI) with your compliance team before using real company data.
-
-**⚠️ Pinecone index note:**
-
-Create the index with **dimension 384** and **cosine** metric to match the embedding model. If you change the embedding model, the dimension must match, and you must re-ingest all documents, because vectors from different models are not comparable.
-
-### Step 4 — Load sample company knowledge
-
-```bash
-python ingest_sample_kb.py
-```
-
-This demonstrates the bilingual RAG ingestion pipeline:
-
-```text
-Company Documents (日本語 + English)
-   ↓
-Load Documents
-   ↓
-Chunk Text (Japanese-aware separators)
-   ↓
-Multilingual HuggingFace Embeddings
-   ↓
-Pinecone Vector Database
-```
-
-### Step 5 — Run the application
-
-```bash
-python run.py
-```
-
-Open:
-
-```text
-http://127.0.0.1:8000
-```
-
-FastAPI API docs:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
----
-
-## 9. Demo Scenarios (English & 日本語)
+## 7. Demo Scenarios (English & 日本語)
 
 ### Demo A — Private KB Success
 
@@ -531,7 +414,7 @@ Teaching point:
 
 ---
 
-## 10. Document Upload Demo
+## 8. Document Upload Demo
 
 The sidebar contains **Add Company Document**.
 
@@ -562,70 +445,8 @@ Pinecone Indexing
 Immediately Available for Retrieval
 ```
 
-This is useful in an FDE demonstration because the customer does not want to edit Python every time a new policy is published.
 
----
 
-## 11. API Endpoints
-
-### `GET /api/health`
-
-Health check.
-
-### `POST /api/chat`
-
-Request:
-
-```json
-{
-  "question": "パスワードをリセットするにはどうすればよいですか?"
-}
-```
-
-Response contains:
-
-```json
-{
-  "answer": "...",
-  "language": "ja",
-  "source_used": "private_kb",
-  "trace": [
-    "Language detected → ja",
-    "Router → KB",
-    "Private KB retrieval → 4 chunks",
-    "KB evidence grade → GOOD",
-    "Answer generation → PRIVATE KB"
-  ],
-  "citations": [
-    { "source": "company_it_handbook_ja.md", "chunk": 3 }
-  ]
-}
-```
-
-### `POST /api/ingest`
-
-Protected by the `X-Admin-Key` request header.
-
-Uploads a document and adds its chunks to Pinecone.
-
----
-
-## 12. Evaluation
-
-Test the system with a small bilingual question set that covers all demo paths.
-
-| Metric | Description |
-|---|---|
-| Retrieval hit rate | The correct chunk appears in the top-k results, measured separately for Japanese and English questions |
-| Cross-lingual hit rate | Japanese question finds English document, and English question finds Japanese document |
-| Groundedness | Share of answer claims supported by the retrieved sources |
-| Citation accuracy | The cited document actually contains the claim |
-| Correct routing | KB vs. web vs. direct decisions match the expected path |
-| Insufficient-evidence behavior | The system admits uncertainty on out-of-scope questions instead of guessing |
-
----
-
-## 13. Roadmap
 
 - [ ] PII redaction before any query is sent to Tavily
 - [ ] Admin-controlled policy switch to enable or disable web fallback
