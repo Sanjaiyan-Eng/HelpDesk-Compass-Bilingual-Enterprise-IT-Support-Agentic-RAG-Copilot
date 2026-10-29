@@ -1,3 +1,12 @@
+## 🎥 Project Demo
+
+Watch the demonstration of **HelpDesk Compass — Bilingual Enterprise IT Support Copilot**.
+
+[▶ Watch the Demo Video on Google Drive](https://drive.google.com/file/d/1fG96N9ZItAf_ul09J1cGFzdNctgBRFDc/view?usp=sharing)
+
+
+
+
 # HelpDesk Compass
 
 ### Bilingual (日本語 / English) Enterprise IT Support Agentic RAG Copilot
@@ -448,11 +457,4 @@ Immediately Available for Retrieval
 
 
 
-- [ ] PII redaction before any query is sent to Tavily
-- [ ] Admin-controlled policy switch to enable or disable web fallback
-- [ ] Human escalation with ticket creation and retrieved context attached
-- [ ] Excel (`.xlsx`) document ingestion
-- [ ] Chat integrations (Microsoft Teams, Slack, LINE WORKS, Chatwork)
-- [ ] Feedback loop from escalated tickets back into the knowledge base
-- [ ] Self-hosted vector database option (for example Qdrant or pgvector) for strict data-residency needs
-- [ ] Full Japanese README (`README.ja.md`)
+
