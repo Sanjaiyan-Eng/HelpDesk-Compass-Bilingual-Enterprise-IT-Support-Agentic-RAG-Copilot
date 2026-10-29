@@ -68,39 +68,9 @@ Build a secure, bilingual IT Support Copilot that:
 
 ---
 
-## 2. Why This Is an FDE Project
 
-A Forward Deployed Engineer does more than create an LLM notebook. The FDE must turn the customer's problem into a usable product, including adapting it to the customer's language and working culture.
 
-```text
-Customer Problem
-      ↓
-Discovery & Requirements
-      ↓
-Solution Architecture
-      ↓
-Data / Knowledge Integration
-      ↓
-Localization (日本語 / English)
-      ↓
-Agentic RAG Development
-      ↓
-API Development
-      ↓
-User Interface
-      ↓
-Security + Audit + Testing
-      ↓
-Deployment
-      ↓
-Observe + Improve
-```
-
-This repository demonstrates each layer.
-
----
-
-## 3. Simple Architecture
+## 2. Simple Architecture
 
 ```text
                    ┌─────────────────────┐
